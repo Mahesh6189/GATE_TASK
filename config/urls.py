@@ -3,6 +3,7 @@ from django.urls import path, include
 from subjects.views import SubjectListCreateView
 from topics.views import TopicListCreateView
 from questions.views import QuestionListCreateView
+from attempts.views import UserAttemptView
 from django.http import JsonResponse
 
 def home(request):
@@ -23,4 +24,7 @@ urlpatterns = [
 
     # Question API
     path('api/questions/', QuestionListCreateView.as_view()),
+    # user attempt
+
+      path('api/attempts/', UserAttemptView.as_view()),
 ]

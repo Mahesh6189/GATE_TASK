@@ -85,11 +85,9 @@ class Question(models.Model):
         if self.topic and self.topic.subject != self.subject:
             raise ValidationError("Selected topic does not belong to this subject")
 
-    # ---------------------
-    # SAVE OVERRIDE
-    # ---------------------
+
     def save(self, *args, **kwargs):
-        self.full_clean()  # ensures clean() always runs
+        self.full_clean() 
         super().save(*args, **kwargs)
 
     # ---------------------
