@@ -29,6 +29,7 @@ urlpatterns = [
 
       path('api/attempts/', UserAttemptView.as_view()),
 
-      path('api/register/', RegisterView.as_view()),
+      
+       path('api/register/', include('register.urls')),
 path('api/login/', LoginView.as_view()),
 ]
