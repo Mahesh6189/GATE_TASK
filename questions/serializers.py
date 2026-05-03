@@ -8,4 +8,4 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = '__all__'
+        exclude = ['correct_option'] 

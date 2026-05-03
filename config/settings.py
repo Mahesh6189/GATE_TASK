@@ -31,16 +31,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',  
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'rest_framework', 
-    'questions',
+
+    # Third party
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    # Local apps
+    'accounts',
     'subjects',
     'topics',
+    'questions',
     'attempts',
 ]
 
@@ -70,6 +77,12 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

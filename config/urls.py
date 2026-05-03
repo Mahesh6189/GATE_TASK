@@ -5,6 +5,7 @@ from topics.views import TopicListCreateView
 from questions.views import QuestionListCreateView
 from attempts.views import UserAttemptView
 from django.http import JsonResponse
+from accounts.views import RegisterView, LoginView
 
 def home(request):
     return JsonResponse({
@@ -27,4 +28,7 @@ urlpatterns = [
     # user attempt
 
       path('api/attempts/', UserAttemptView.as_view()),
+
+      path('api/register/', RegisterView.as_view()),
+path('api/login/', LoginView.as_view()),
 ]
