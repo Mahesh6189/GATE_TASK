@@ -24,6 +24,10 @@ class UserAttempt(models.Model):
 
     attempted_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'question')
+        ordering = ['-attempted_at']
+
     def save(self, *args, **kwargs):
         # auto-calculate correctness
         self.is_correct = (

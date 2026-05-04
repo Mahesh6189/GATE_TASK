@@ -7,16 +7,18 @@ from .models import UserAttempt
 from .serializers import UserAttemptSerializer
 
 class UserAttemptView(APIView):
+    permission_classes = [IsAuthenticated]
 
-    # GET all attempts
     def get(self, request):
-        attempts = UserAttempt.objects.all()
+        attempts = UserAttempt.objects.filter(user=request.user)
         serializer = UserAttemptSerializer(attempts, many=True)
         return Response(serializer.data)
 
-    # POST attempt
     def post(self, request):
-        serializer = UserAttemptSerializer(data=request.data)
+        serializer = UserAttemptSerializer(
+            data=request.data,
+            context={'request': request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
