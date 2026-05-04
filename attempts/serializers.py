@@ -3,7 +3,7 @@ from .models import UserAttempt
 
 class UserAttemptSerializer(serializers.ModelSerializer):
 
-    question_text = serializers.CharField(source='question.question_text', read_only=True)
+    question_text = serializers.CharField(source='question.text', read_only=True)
     correct_answer = serializers.CharField(source='question.correct_option', read_only=True)
 
     class Meta:

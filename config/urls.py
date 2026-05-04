@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from subjects.views import SubjectListCreateView
 from topics.views import TopicListCreateView
-from questions.views import QuestionListCreateView
-from attempts.views import UserAttemptView
+from questions.views import QuestionListCreateView, QuestionDetailView
+from attempts.views import UserAttemptView, AttemptStatsView
 from django.http import JsonResponse
 from accounts.views import RegisterView, LoginView
 
@@ -25,11 +25,10 @@ urlpatterns = [
 
     # Question API
     path('api/questions/', QuestionListCreateView.as_view()),
+    path('api/questions/<int:pk>/', QuestionDetailView.as_view()),
     # user attempt
-
-      path('api/attempts/', UserAttemptView.as_view()),
-
-      
-       path('api/register/', include('register.urls')),
-path('api/login/', LoginView.as_view()),
+    path('api/attempts/', UserAttemptView.as_view()),
+    path('api/stats/', AttemptStatsView.as_view()),
+    path('api/register/', include('register.urls')),
+    path('api/login/', LoginView.as_view()),
 ]

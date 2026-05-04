@@ -1,0 +1,381 @@
+{
+  "info": {
+    "name": "GATE Question Bank API",
+    "description": "Complete REST API for GATE self-study platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"testuser\",\"password\":\"testpass123\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/register/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "register", ""]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set('token', jsonData.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"testuser\",\"password\":\"testpass123\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/login/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "login", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "List All Questions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/questions/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", ""]
+            }
+          }
+        },
+        {
+          "name": "List Questions by Subject",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/questions/?subject=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", ""],
+              "query": [
+                {
+                  "key": "subject",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Questions by Difficulty",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/questions/?difficulty=medium",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", ""],
+              "query": [
+                {
+                  "key": "difficulty",
+                  "value": "medium"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Question",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/questions/1/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Question (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"text\":\"What is the time complexity of binary search?\",\"subject\":1,\"topic\":1,\"difficulty\":\"medium\",\"year\":2023,\"option_a\":\"O(n)\",\"option_b\":\"O(log n)\",\"option_c\":\"O(n log n)\",\"option_d\":\"O(n²)\",\"correct_option\":\"B\",\"explanation\":\"Binary search eliminates half of remaining elements in each iteration\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/questions/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Question (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"difficulty\":\"hard\",\"year\":2024}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/questions/1/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Question (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"difficulty\":\"easy\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/questions/1/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Question (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8000/api/questions/1/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "questions", "1", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subjects",
+      "item": [
+        {
+          "name": "List All Subjects",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/subjects/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "subjects", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Subject",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Data Structures\",\"code\":\"DSA\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/subjects/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "subjects", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attempts",
+      "item": [
+        {
+          "name": "Submit Attempt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":1,\"question\":1,\"selected_option\":\"B\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/attempts/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "attempts", ""]
+            }
+          }
+        },
+        {
+          "name": "View User Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/stats/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "stats", ""]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
